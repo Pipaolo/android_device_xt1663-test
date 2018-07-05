@@ -125,9 +125,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 # MTK Hardware
 BOARD_USES_MTK_HARDWARE := true
 
-# SELinux
-BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
-
 # System Properties
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
