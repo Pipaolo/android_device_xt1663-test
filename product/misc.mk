@@ -5,11 +5,11 @@ PRODUCT_PACKAGES += \
     
 # Misc
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${DEVICE_PATH}/configs/misc,system/vendor/etc) \
-    $(DEVICE_PATH)/configs/misc/clatd.conf:system/etc/clatd.conf
+    $(call find-copy-subdir-files,*,device/motorola/XT1663/configs/misc,system/vendor/etc) \
+
 
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/radvd/radvd.conf:system/vendor/etc/radvd/radvd.conf
+    $(LOCAL_PATH)/configs/radvd/radvd.conf:system/vendor/etc/radvd/radvd.conf
 
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${DEVICE_PATH}/configs/wide-dhcpv6,system/vendor/etc/wide-dhcpv6)
+    $(call find-copy-subdir-files,*,device/motorola/XT1663/configs/wide-dhcpv6,system/vendor/etc/wide-dhcpv6)

@@ -1,21 +1,20 @@
-# Inherit from hardware-specific part of the product configuration
-$(call inherit-product, $(LOCAL_PATH)/device.mk)
-
-# Inherit some common lineageos stuff.
+# Inherit some common LineageOS stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Release name
-PRODUCT_RELEASE_NAME := kungfu_m
+# Inherit device configuration
+$(call inherit-product, $(LOCAL_PATH)/device_XT1663.mk)
 
-PRODUCT_DEVICE := kungfu_m
-PRODUCT_NAME := lineage_kungfu_m
-PRODUCT_BRAND := motorola
-PRODUCT_MODEL := kungfu_m
-PRODUCT_MANUFACTURER := kungfu_m
+# Device display
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
 
-# Boot animation
-TARGET_SCREEN_HEIGHT      := 1920
-TARGET_SCREEN_WIDTH       := 1080
+# Device identifier
+PRODUCT_BRAND := Motorola
+PRODUCT_DEVICE := XT1663
+PRODUCT_MANUFACTURER := Motorola
+PRODUCT_MODEL := XT1663
+PRODUCT_NAME := lineage_XT1663
+PRODUCT_RELEASE_NAME := XT1663
 
-PRODUCT_DEFAULT_LANGUAGE := en
-PRODUCT_DEFAULT_REGION   := US
+# Vendor properties
+PRODUCT_RESTRICT_VENDOR_FILES := false

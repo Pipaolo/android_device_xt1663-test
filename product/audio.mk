@@ -17,4 +17,4 @@ PRODUCT_COPY_FILES += \
     
 # Audio
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,${LOCAL_PATH}/configs/audio,system/vendor/etc)
+    $(call find-copy-subdir-files,*,device/motorola/XT1663/configs/audio,system/vendor/etc)

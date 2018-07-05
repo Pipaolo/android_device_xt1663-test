@@ -1,7 +1,30 @@
-# mt6755 platform boardconfig
-DEVICE_PATH := device/motorola/kungfu_m
+#
+# Copyright (C) 2016 The CyanogenMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-# TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
+# Device path
+LOCAL_PATH := device/motorola/XT1663
+
+# Device board elements
+include $(LOCAL_PATH)/board/*.mk
+# Device vendor board
+-include vendor/motorola/XT1663/BoardConfigVendor.mk
+
+# TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
+#######################################################################
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6755
@@ -65,7 +88,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6755
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.mt6755
 
 # Boot animation
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
@@ -74,11 +97,11 @@ TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Common Properties
-TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 # Cyanogenmod H/W Hooks
 BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/cmhw
+BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw
 
 # Dalvik Tweak
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -103,9 +126,9 @@ TARGET_PROVIDES_LIBLIGHT := true
 BOARD_USES_MTK_HARDWARE := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
 
 # System Properties
-TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 
