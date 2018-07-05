@@ -1,0 +1,19 @@
+# Fingerprint device
+allow fingerprintd sysfs:file rw_file_perms;
+allow fingerprintd storage_file:dir create_dir_perms;
+allow fingerprintd storage_file:lnk_file create_file_perms;
+allow fingerprintd mnt_user_file:dir create_dir_perms;
+allow fingerprintd mnt_user_file:lnk_file create_file_perms;
+
+allow fingerprintd self:capability { dac_override dac_read_search };
+allow fingerprintd fuse:dir create_dir_perms;
+allow fingerprintd fuse:file create_file_perms;
+
+# Add by Pipaolo
+allow fingerprintd teei_fp_device:chr_file { read write open };
+allow fingerprintd teei_fp_device:chr_file { ioctl };
+allow fingerprintd uhid_device:chr_file { write open };
+allow fingerprintd uhid_device:chr_file { ioctl };
+allow fingerprintd system_data_file:dir { write };
+allow fingerprintd system_data_file:dir { add_name };
+allow fingerprintd system_data_file:sock_file { create };
