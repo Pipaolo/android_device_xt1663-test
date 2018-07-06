@@ -68,4 +68,4 @@ allow program_binary dri_device:chr_file { read write open ioctl };
 allow program_binary proc_ged:file {open read write ioctl getattr};
 
 # Add by Pipaolo
-allow program_binary system_file:dir { read open }
+allow program_binary system_file:dir { read open };

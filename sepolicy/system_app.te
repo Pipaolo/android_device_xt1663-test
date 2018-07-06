@@ -273,5 +273,5 @@ allow system_app cache_recovery_file:file { read write create open getattr unlin
 allow system_app vfat:dir create;
 
 # Add by Pipaolo
-allow system_app netd:binder call;
+#allow system_app netd:binder call; neverallow
 allow system_app fingerprintd:binder call;
