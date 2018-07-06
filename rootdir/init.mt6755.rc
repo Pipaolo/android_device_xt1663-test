@@ -16,6 +16,7 @@ import init.common_svc.rc
 import init.microtrust.rc
 import init.chiptest.rc
 import init.common.rc
+
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
 # *** DO NOT import the new rc file after this line ***
@@ -40,10 +41,9 @@ on init
     mkdir /nvcfg 0771 system system
 #Create nvdata mount point
     mkdir /nvdata 0771 system system
+    
 # Create CIP mount point
     mkdir /custom
-
-    mkdir /mnt/cd-rom 0000 system system
 
 # change lk_env permission
     chown root system /proc/lk_env
@@ -69,7 +69,7 @@ on property:persist.mediatek.fg.force25c=0
     write /sys/devices/platform/battery_meter/FG_drv_force25c 0
 
 on property:persist.mediatek.fg.log.enable=1
-		chmod 0666 /dev/kmsg
+    chmod 0666 /dev/kmsg
     write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
     write /proc/sys/kernel/printk 8
 
@@ -83,10 +83,18 @@ on charger
     start fuelgauged
     start kpoc_charger
     start servicemanager
+    
+    # disable USB
+    write /sys/devices/platform/mt_usb/cmode 0
 
 on fs
-
+    write /proc/bootprof "INIT:Mount_START"
+    write /sys/kernel/debug/tracing/trace_marker "B|1|Mount"
     mount_all /fstab.mt6755
+    #exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
+   	
+    write /sys/kernel/debug/tracing/trace_marker "E"
+    write /proc/bootprof "INIT:Mount_END"
 
 on post-fs
     write /proc/bootprof "INIT:post-fs"
@@ -160,6 +168,7 @@ on post-fs-data
 
     # NFC
     mkdir /data/nfc_socket 0771 nfc radio
+    
 # Lenovo-sw zhongling1 add for fpc
     chown system system /sys/bus/spi/devices/spi0.1/clk_enable
     chown system system /sys/bus/spi/devices/spi0.1/wakeup_enable
@@ -201,8 +210,6 @@ on post-fs-data
     #insmod /vendor/lib/modules/mali.ko
     chmod 666 /dev/mali0
     #chown system graphics /dev/mali
-
-
 
     # Touch Panel
     # chmod 0664 /dev/touch
@@ -357,8 +364,6 @@ on post-fs-data
     chown system system /sys/class/misc/m_baro_misc/barobatch
     chown system system /sys/class/misc/m_baro_misc/baroflush
 
-
-
     #Accdet
     chown root radio /sys/devices/platform/Accdet_Driver/driver/accdet_call_state
 
@@ -385,7 +390,7 @@ on post-fs-data
     chown radio system /sys/devices/platform/mt-pmic/low_battery_protect_ut
 
     mkdir /data/amit/ 0770 system system
-		mkdir /data/misc/sensor 0774 system system
+    mkdir /data/misc/sensor 0774 system system
     mkdir /data/misc/akmd 0770 system system
     mkdir /data/misc/s62x 0771 compass compass
     mkdir /data/acdapi/ 0770 system system
@@ -397,7 +402,7 @@ on post-fs-data
     chown system /sys/devices/platform/msensor/driver/cpsreptz
     chown system /sys/devices/platform/gsensor/driver/cpsopmode
     chown system /sys/devices/platform/gsensor/driver/cpsrange
-    mkdir	/data/mcube 0664 system system
+    mkdir /data/mcube 0664 system system
 
     chown system /sys/class/input/input1/enable
     chown system /sys/class/input/input1/delay
@@ -883,11 +888,6 @@ service bugreport /system/bin/dumpstate -d -p -B \
 on property:sys.boot_completed=1
     start ged_srv
 
-on property:sys.boot_completed=1
-    # restore perf. parameters
-    write /proc/ppm/policy/userlimit_min_cpu_freq "1 -1"
-    write /proc/ppm/policy/userlimit_min_cpu_core "1 -1"
-
 service ged_srv /vendor/bin/ged_srv
     class core
     user system
@@ -896,14 +896,12 @@ service ged_srv /vendor/bin/ged_srv
 
 service netdiag /vendor/bin/netdiag
     class main
-    socket netdiag stream 0664 root inet
-
 
 service nvram_daemon /vendor/bin/nvram_daemon
     class main
-    user root
-    group system
-    oneshot
+     user root
+     group system
+     oneshot
 
 service sysenv_daemon /vendor/bin/sysenv_daemon
     class main
@@ -970,7 +968,6 @@ service rbfota /vendor/bin/fota1
     class main
     disabled
     oneshot
-
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
     class main
