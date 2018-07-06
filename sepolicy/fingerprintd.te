@@ -16,4 +16,6 @@ allow fingerprintd uhid_device:chr_file { write open };
 allow fingerprintd uhid_device:chr_file { ioctl };
 allow fingerprintd system_data_file:dir { write };
 allow fingerprintd system_data_file:dir { add_name };
+allow fingerprintd system_data_file:dir { remove_name };
 allow fingerprintd system_data_file:sock_file { create };
+allow fingerprintd system_data_file:sock_file { unlink };

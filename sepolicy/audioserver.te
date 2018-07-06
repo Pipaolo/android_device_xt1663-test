@@ -285,3 +285,7 @@ allow audioserver audio_ipi_device:chr_file { read write ioctl open };
 # Operation : Migration
 # Purpose : WFD and MET Latency measurement
 allow audioserver media_wfd_prop:property_service set;
+
+# Add by Pipaolo
+allow audioserver smartpa1_device:chr_file { read write open };
+allow audioserver smartpa1_device:chr_file { ioctl };
