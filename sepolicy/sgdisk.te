@@ -1,0 +1,2 @@
+# Add by Pipaolo
+allow sgdisk ut_keymaster_device:chr_file { read write };

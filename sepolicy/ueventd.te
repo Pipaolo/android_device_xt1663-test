@@ -17,3 +17,11 @@ allow ueventd sysfs_md32:file { write open };
 
 #add for sysfs:scp
 allow ueventd sysfs_scp:file { write open };
+
+# Add by Pipaolo
+allow ueventd input_device:chr_file { relabelfrom };
+allow ueventd input_device:chr_file { relabelto };
+allow ueventd MT_pmic_adc_cali_device:chr_file { relabelfrom };
+allow ueventd MT_pmic_adc_cali_device:chr_file { relabelto };
+allow ueventd device:chr_file { relabelfrom };
+allow ueventd device:chr_file { relabelto };

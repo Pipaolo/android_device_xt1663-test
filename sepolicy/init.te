@@ -104,3 +104,6 @@ allow init rawfs:file getattr;
 # Purpose : allow insert modules from rootfs
 allow init rootfs:system module_load;
 
+# Add by Pipaolo
+allow init debugfs:file { write };
+
