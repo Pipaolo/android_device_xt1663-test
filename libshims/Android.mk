@@ -31,3 +31,17 @@ LOCAL_MODULE := libshim_ifc
 LOCAL_C_INCLUDES += system/core/libnetutils/include
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
+
+# /vendor/bin/guiext-server ( __xlog_buf_printf )
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := xlog.cpp
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_MODULE := libshim_xlog
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := vtservice.cpp
+LOCAL_MODULE := libshim_vtservice
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
