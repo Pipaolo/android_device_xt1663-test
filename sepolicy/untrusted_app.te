@@ -133,3 +133,7 @@ allow untrusted_app embms_library_file:file {read getattr open};
 # Operator: New feature for eMBMS middleware integration
 # Purpose: allow vendor's eMBMS middleware APK to send AT-command via embmsd local socket
 unix_socket_connect(untrusted_app, rild_embms, rilproxy)
+
+# Add by Pipaolo
+allow untrusted_app sysfs_zram:file { search read open getattr };
+allow untrusted_app sysfs:file { read open };
