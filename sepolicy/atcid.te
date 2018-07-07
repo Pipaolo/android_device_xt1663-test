@@ -64,4 +64,4 @@ allow atcid alarm_device:chr_file { write open };
 allow atcid proc_ged:file {open read write ioctl getattr};
 
 # Add by Pipaolo
-allow atcid sysfs:file { read write };
+allow atcid sysfs:file { read write open };

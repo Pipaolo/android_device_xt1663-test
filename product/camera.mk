@@ -1,3 +1,3 @@
 # Snap
 PRODUCT_PACKAGES += \
-   Snap
+	LenovoCamera
