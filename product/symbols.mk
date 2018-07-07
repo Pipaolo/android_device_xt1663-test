@@ -5,7 +5,7 @@ PRODUCT_PACKAGES += \
     libshim_ifc \
     libshim_misc \
     libshim_xlog \
-    libshim_vtservice 
+    libshim_cam 
 
 # Linker
 LINKER_FORCED_SHIM_LIBS := /system/vendor/bin/thermal|libshim_ifc.so
@@ -14,4 +14,4 @@ LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libMtkOmxVenc.so|libshim_ui.so:/sy
 LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libcam_utils.so|libshim_ui.so
 LINKER_FORCED_SHIM_LIBS += /system/vendor/bin/guiext-server|libshim_xlog.so
 LINKER_FORCED_SHIM_LIBS += /system/lib/libandroid_runtime.so|libshim_misc.so:/system/lib64/libandroid_runtime.so|libshim_misc.so:/system/vendor/bin/program_binary_builder|libshim_misc.so
-LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libvtmal.so|libshim_vtservice.so
+LINKER_FORCED_SHIM_LIBS += /system/vendor/lib/libcam.camadapter.so|libshim_cam.so
