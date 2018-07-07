@@ -114,6 +114,7 @@ service.nvram_init     u:object_r:service_nvram_init_prop:s0
 
 #=============allow ro.wlan.mtk.wifi.5g property================
 ro.wlan.mtk.wifi.5g     u:object_r:wifi_5g_prop:s0
+wlan.mtk.wifi.5g    u:object_r:wmt_prop:s0
 
 #=============Allow EM To Set Camera APP Mode  ==============
 mtk.client.      u:object_r:mtk_em_prop:s0
@@ -283,3 +284,9 @@ persist.imstestmode.support u:object_r:ims_mode_prop:s0
 
 #=============3g vt property===========
 persist.3gvt.em_eng_config u:object_r:mtk_em_3gvt_prop:s0
+
+## IDK
+sys.msim.power.slot0 u:object_r:ril_msim_power_prop:s0
+sys.msim.power.slot1 u:object_r:ril_msim_power_prop:s0
+sys.sim_inserted_status_0 u:object_r:ril_sim_inserted_status:s0
+sys.sim_inserted_status_1 u:object_r:ril_sim_inserted_status:s0
