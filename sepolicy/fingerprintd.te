@@ -9,6 +9,7 @@ allow fingerprintd self:capability { dac_override dac_read_search };
 allow fingerprintd fuse:dir create_dir_perms;
 allow fingerprintd fuse:file create_file_perms;
 
+
 # Add by Pipaolo
 allow fingerprintd teei_fp_device:chr_file { read write open };
 allow fingerprintd teei_fp_device:chr_file { ioctl };

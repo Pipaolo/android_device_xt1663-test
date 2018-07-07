@@ -111,3 +111,6 @@ allow mtkmal wfca:unix_stream_socket connectto;
 
 #for timer
 allow mtkmal self:capability2 wake_alarm;
+
+# Add by Pipaolo
+allow mtkmal system_file:dir { read open }; 
