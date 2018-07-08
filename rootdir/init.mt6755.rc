@@ -5,7 +5,6 @@ import init.connectivity.rc
 import init.project.rc
 import init.microtrust.rc
 import init.common.rc
-import rild.rc
 # init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
 import init.modem.rc
 # *** DO NOT import the new rc file after this line ***
@@ -18,8 +17,6 @@ on early-init
     chmod 0755 /sys/kernel/debug
 
 on init
-    export LD_PRELOAD "libmtk_symbols.so"
-    
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
 
