@@ -17,7 +17,7 @@ ril.radiooff.poweroffMD=0
 ril.specific.sm_cause=0
 ril.external.md=0
 ro.kernel.android.checkjni=0 
-ro.telephony.ril_class=MediaTekRIL
+ro.telephony.ril_class=MT6755
 ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
 ro.telephony.default_network=9,9
@@ -56,7 +56,7 @@ ro.boot.opt_lte_support=1
 ro.boot.opt_eccci_c2k=1
 ro.boot.opt_using_default=1
 ro.sim_me_lock_mode=0
-ro.com.android.mobiledata=true
+ro.com.android.mobiledata=false
 keyguard.no_require_sim=true
 bgw.current3gband=0
 

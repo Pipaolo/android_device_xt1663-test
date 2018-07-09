@@ -1,13 +1,21 @@
 # MTK platform .rc configure
 
-import init.mt6755.usb.rc
 import init.connectivity.rc
 import init.project.rc
-import init.microtrust.rc
+import init.aee.rc
+import init.fon.rc
+import init.rilproxy.rc
+import init.volte.rc
+import init.mal.rc
+import init.epdg.rc
+import init.wfca.rc
+import init.trustonic.rc
+import init.zygote_on_demand.rc
+import init.common_svc.rc
 import init.common.rc
-# init.modem.rc must be the LAST rc file because vold.post_fs_data_done is set in it
+import init.microtrust.rc
+import init.chiptest.rc
 import init.modem.rc
-# *** DO NOT import the new rc file after this line ***
 
 on early-init
     write /proc/ppm/policy/userlimit_min_cpu_freq "1 1508000"

@@ -99,6 +99,10 @@ TARGET_PROVIDES_LIBLIGHT := true
 # MTK Hardware
 BOARD_USES_MTK_HARDWARE := true
 
+# RIL
+BOARD_PROVIDES_RILD := true
+BOARD_RIL_CLASS := ../../../device/motorola/XT1663/ril
+
 # System Properties
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
