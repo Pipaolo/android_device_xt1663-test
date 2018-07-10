@@ -1,5 +1,6 @@
 # MTK platform .rc configure
 
+import init.common.rc
 import init.connectivity.rc
 import init.project.rc
 import init.aee.rc
