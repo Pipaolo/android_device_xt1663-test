@@ -12,7 +12,6 @@ import init.wfca.rc
 import init.trustonic.rc
 import init.zygote_on_demand.rc
 import init.common_svc.rc
-import init.common.rc
 import init.microtrust.rc
 import init.chiptest.rc
 import init.modem.rc
@@ -37,9 +36,10 @@ on init
     mkdir /nvcfg 0771 system system
 #Create nvdata mount point
     mkdir /nvdata 0771 system system
-    
 # Create CIP mount point
     mkdir /custom
+
+    mkdir /mnt/cd-rom 0000 system system
 
 # change lk_env permission
     chown root system /proc/lk_env
@@ -65,7 +65,7 @@ on property:persist.mediatek.fg.force25c=0
     write /sys/devices/platform/battery_meter/FG_drv_force25c 0
 
 on property:persist.mediatek.fg.log.enable=1
-    chmod 0666 /dev/kmsg
+		chmod 0666 /dev/kmsg
     write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
     write /proc/sys/kernel/printk 8
 
@@ -79,18 +79,18 @@ on charger
     start fuelgauged
     start kpoc_charger
     start servicemanager
-    
-    # disable USB
-    write /sys/devices/platform/mt_usb/cmode 0
 
 on fs
     write /proc/bootprof "INIT:Mount_START"
     write /sys/kernel/debug/tracing/trace_marker "B|1|Mount"
     mount_all /fstab.mt6755
-    #exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
-   	
+    exec /system/bin/tune2fs -O has_journal -u 10010 -r 4096 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata
     write /sys/kernel/debug/tracing/trace_marker "E"
     write /proc/bootprof "INIT:Mount_END"
+
+on fs
+
+   mount iso9660 loop@/vendor/etc/iAmCdRom.iso /mnt/cd-rom ro
 
 on post-fs
     write /proc/bootprof "INIT:post-fs"
@@ -164,7 +164,6 @@ on post-fs-data
 
     # NFC
     mkdir /data/nfc_socket 0771 nfc radio
-    
 # Lenovo-sw zhongling1 add for fpc
     chown system system /sys/bus/spi/devices/spi0.1/clk_enable
     chown system system /sys/bus/spi/devices/spi0.1/wakeup_enable
@@ -206,6 +205,8 @@ on post-fs-data
     #insmod /vendor/lib/modules/mali.ko
     chmod 666 /dev/mali0
     #chown system graphics /dev/mali
+
+
 
     # Touch Panel
     # chmod 0664 /dev/touch
@@ -360,6 +361,8 @@ on post-fs-data
     chown system system /sys/class/misc/m_baro_misc/barobatch
     chown system system /sys/class/misc/m_baro_misc/baroflush
 
+
+
     #Accdet
     chown root radio /sys/devices/platform/Accdet_Driver/driver/accdet_call_state
 
@@ -386,7 +389,7 @@ on post-fs-data
     chown radio system /sys/devices/platform/mt-pmic/low_battery_protect_ut
 
     mkdir /data/amit/ 0770 system system
-    mkdir /data/misc/sensor 0774 system system
+		mkdir /data/misc/sensor 0774 system system
     mkdir /data/misc/akmd 0770 system system
     mkdir /data/misc/s62x 0771 compass compass
     mkdir /data/acdapi/ 0770 system system
@@ -398,7 +401,7 @@ on post-fs-data
     chown system /sys/devices/platform/msensor/driver/cpsreptz
     chown system /sys/devices/platform/gsensor/driver/cpsopmode
     chown system /sys/devices/platform/gsensor/driver/cpsrange
-    mkdir /data/mcube 0664 system system
+    mkdir	/data/mcube 0664 system system
 
     chown system /sys/class/input/input1/enable
     chown system /sys/class/input/input1/delay
@@ -581,7 +584,8 @@ on post-fs-data
 
     # SMI
     chmod 0660 /dev/MTK_SMI
-    chown system camera /dev/MTK_SMI
+    chown media media /dev/MTK_SMI
+
 
    #change partition permission
 
@@ -884,6 +888,11 @@ service bugreport /system/bin/dumpstate -d -p -B \
 on property:sys.boot_completed=1
     start ged_srv
 
+on property:sys.boot_completed=1
+    # restore perf. parameters
+    write /proc/ppm/policy/userlimit_min_cpu_freq "1 -1"
+    write /proc/ppm/policy/userlimit_min_cpu_core "1 -1"
+
 service ged_srv /vendor/bin/ged_srv
     class core
     user system
@@ -892,12 +901,14 @@ service ged_srv /vendor/bin/ged_srv
 
 service netdiag /vendor/bin/netdiag
     class main
+    socket netdiag stream 0664 root inet
+
 
 service nvram_daemon /vendor/bin/nvram_daemon
     class main
-     user root
-     group system
-     oneshot
+    user root
+    group system
+    oneshot
 
 service sysenv_daemon /vendor/bin/sysenv_daemon
     class main
@@ -959,6 +970,124 @@ service aal /vendor/bin/aal
     user system
     group system graphics
 
+# FOTA upgrade
+service rbfota /vendor/bin/fota1
+    class main
+    disabled
+    oneshot
+
+
+service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
+    class main
+    user root
+    group net_admin net_raw
+    disabled
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -BK -dd
+    class main
+    user root
+    group net_admin net_raw
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
+    class main
+    user root
+    group net_admin net_raw
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    user dhcp
+    group net_admin net_raw
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    user dhcp
+    group net_admin net_raw
+    disabled
+    oneshot
+
+service dhcp_inform /system/bin/dhcpcd -s -BK -A
+    class main
+    user root
+    group system radio dhcp net_admin net_raw
+    disabled
+    oneshot
+
+service dhcpv6_inform /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
+    class main
+    user root
+    group system radio dhcp net_admin net_raw
+    disabled
+    oneshot
+
+service dhcp6cDNS_wlan0 /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
+    disabled
+    oneshot
+
+service dhcp6c_wlan0 /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
+    disabled
+    oneshot
+
+on property:service.dhcp6c_wlan0.enable=0
+    stop dhcp6c_wlan0
+
+on property:service.dhcp6c_wlan0.enable=1
+    start dhcp6c_wlan0
+
+service dhcp6c_PD /vendor/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cPD.conf" -Df
+    disabled
+    oneshot
+
+service pppoe_wlan0 /vendor/bin/launchpppoe
+    user root
+    group radio cache inet misc
+    disabled
+    oneshot
+
+on property:service.pppoe_wlan0.enable=0
+    stop pppoe_wlan0
+
+on property:service.pppoe_wlan0.enable=1
+    start pppoe_wlan0
+# write proc for test sim
+    on property:gsm.sim.ril.testsim=0
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
+    write /proc/sys/net/ipv4/tcp_rto_min 200
+    write /proc/sys/net/ipv4/tcp_early_retrans 3
+    on property:gsm.sim.ril.testsim=1
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
+    write /proc/sys/net/ipv4/tcp_rto_min 400
+    write /proc/sys/net/ipv4/tcp_early_retrans 0
+    on property:gsm.sim.ril.testsim.2=0
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
+    write /proc/sys/net/ipv4/tcp_rto_min 200
+    write /proc/sys/net/ipv4/tcp_early_retrans 3
+    on property:gsm.sim.ril.testsim.2=1
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
+    write /proc/sys/net/ipv4/tcp_rto_min 400
+    write /proc/sys/net/ipv4/tcp_early_retrans 0
+    on property:gsm.sim.ril.testsim.3=0
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
+    write /proc/sys/net/ipv4/tcp_rto_min 200
+    write /proc/sys/net/ipv4/tcp_early_retrans 3
+    on property:gsm.sim.ril.testsim.3=1
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
+    write /proc/sys/net/ipv4/tcp_rto_min 400
+    write /proc/sys/net/ipv4/tcp_early_retrans 0
+    on property:gsm.sim.ril.testsim.4=0
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 0
+    write /proc/sys/net/ipv4/tcp_rto_min 200
+    write /proc/sys/net/ipv4/tcp_early_retrans 3
+    on property:gsm.sim.ril.testsim.4=1
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
+    write /proc/sys/net/ipv4/tcp_rto_min 400
+    write /proc/sys/net/ipv4/tcp_early_retrans 0
 
 service DMAgent /vendor/bin/dm_agent_binder
     class main
@@ -970,10 +1099,20 @@ service PPLAgent /vendor/bin/ppl_agent
     user root
     group system cache
 
+service vtservice /vendor/bin/vtservice
+    class main
+    socket soc_vt_tcv dgram 660 radio system
+    socket soc_vt_stk dgram 660 radio system
+    socket soc_vt_svc dgram 660 radio system
+    socket volte_vt stream 660 root system
+    user media
+    group system camera graphics inet net_admin net_raw media sdcard_rw radio sdcard_r media_rw
+    ioprio rt 4
+
 service mediacodec /system/bin/mediacodec
     class main
     user mediacodec
-    group media system audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm sdcard_r media_rw
+    group media system audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm sdcard_rw
     ioprio rt 4
 
 service cmmb /system/bin/cmmbsp
@@ -1034,6 +1173,10 @@ service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepe
 #
 #  Modem related services (End)
 #
+
+#service agpsdcainit /system/bin/agpscacertinit
+#    class main
+#    oneshot
 
 service agpsd /vendor/bin/mtk_agpsd
     class main
@@ -1323,6 +1466,18 @@ service guiext-server /vendor/bin/guiext-server
     class main
     user system
     group system graphics
+
+# OperaMax Service
+service OperaMaxSystem /system/bin/OperaMaxSystem
+    socket tunman stream 0666 system system
+    class main
+    disabled
+
+on property:persist.service.operamax=1
+    start OperaMaxSystem
+
+on property:persist.service.operamax=0
+    stop OperaMaxSystem
 
 service kpoc_charger /vendor/bin/kpoc_charger
     class charger

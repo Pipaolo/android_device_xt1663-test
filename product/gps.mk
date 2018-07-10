@@ -1,6 +1,8 @@
-# Curl
+# GPS
 PRODUCT_PACKAGES += \
-    libcurl
+    gps.mt6755 \
+    libcurl \
+    YGPS
     
 # GPS
 PRODUCT_COPY_FILES += \

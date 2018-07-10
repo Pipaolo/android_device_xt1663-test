@@ -13,6 +13,3 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/motorola/XT1663/configs/wide-dhcpv6,system/vendor/etc/wide-dhcpv6)
-
- PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/init/cameraserver.rc:system/etc/init/cameraserver.rc

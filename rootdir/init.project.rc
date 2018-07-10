@@ -162,11 +162,6 @@ service audio-daemon /vendor/bin/audiocmdservice_atci
     disabled
     oneshot
 
-
-
-
-
-
 service spm_script /vendor/bin/spm_loader
     user system
     group system

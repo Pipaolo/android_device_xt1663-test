@@ -1,9 +1,8 @@
-#on property:vold.decrypt=trigger_restart_framework
-#    setprop soter.teei.vold.decrypt OK
+on property:vold.decrypt=trigger_restart_framework
+    setprop soter.teei.vold.decrypt OK
 
 on fs
-
-    write /proc/bootprof "start teei_daemon (on fs)"
+	write /proc/bootprof "start teei_daemon (on fs)"
     chmod 0666 /dev/teei_client
     chown system system /dev/teei_client
     chmod 0660 /dev/teei_config
@@ -24,8 +23,8 @@ service microtrust /system/bin/sh /vendor/etc/microtrust.sh
     class main
     user root
     group root
-    oneshot
     disabled
+    oneshot
     seclabel u:r:microtrust:s0
 
 on post-fs-data

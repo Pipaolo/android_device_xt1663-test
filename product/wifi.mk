@@ -6,6 +6,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf \
     lib_driver_cmd_mt66xx
+
+
     
 PRODUCT_COPY_FILES += \
     device/motorola/XT1663/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \

@@ -54,7 +54,7 @@ service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/
     user system
     group system
     class core
-   
+
 on property:service.wcn.coredump.mode=2
 start stp_dump
 
@@ -78,6 +78,11 @@ service MPED /vendor/bin/MPED
     group gps inet misc sdcard_rw sdcard_r media_rw system
     socket MPED stream 660 gps system
 
+#service BGW /vendor/bin/BGW
+#    user system
+#    group gps system radio
+#    class main
+
 # Wlan
 service wifi2agps /vendor/bin/wifi2agps
     class main
@@ -87,7 +92,7 @@ service wifi2agps /vendor/bin/wifi2agps
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
-    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin  \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
@@ -100,7 +105,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin  \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
