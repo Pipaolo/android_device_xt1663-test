@@ -7,3 +7,8 @@ PRODUCT_COPY_FILES += \
 # Telephony
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,device/motorola/XT1663/configs/telephony,system/vendor/etc)
+
+# Messaging
+PRODUCT_PACKAGES += \
+    messaging \
+    Stk

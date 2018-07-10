@@ -1,13 +1,9 @@
 # Wifi
 PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    hostapd \
     libwpa_client \
-    wpa_supplicant \
-    wpa_supplicant.conf \
-    lib_driver_cmd_mt66xx
-
-
+    lib_driver_cmd_mt66xx \
+    hostapd \
+    wpa_supplicant
     
 PRODUCT_COPY_FILES += \
     device/motorola/XT1663/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \

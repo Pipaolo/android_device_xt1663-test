@@ -39,15 +39,3 @@ LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_MODULE := libshim_xlog
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
-
-# GPS Symbols
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-	icu53.c \
-	ssl.c
-LOCAL_SHARED_LIBRARIES := libicuuc libssl
-LOCAL_MODULE := libshim_gps
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SHARED_LIBRARY)
