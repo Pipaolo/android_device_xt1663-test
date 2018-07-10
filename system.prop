@@ -60,8 +60,6 @@ ro.com.android.mobiledata=false
 keyguard.no_require_sim=true
 bgw.current3gband=0
 
-
-
 ### WiFi ###
 
 wifi.interface=wlan0
