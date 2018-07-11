@@ -4,13 +4,7 @@
 ################
 # CONNECTIVITY #
 ################
-
-#ro.telephony.ril_class=MediaTekRIL
-#ro.telephony.ril.config=fakeiccid
-#ro.kernel.android.checkjni=0 
-
 ### RIL ###
-
 rild.libpath=mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 ril.first.md=1

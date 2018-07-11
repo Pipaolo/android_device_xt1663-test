@@ -35,7 +35,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-#TARGET_USES_MKE2FS := true # Use MKE2FS for creating ext4 images
+TARGET_USES_MKE2FS := true # Use MKE2FS for creating ext4 images
 
 # Fingerprint
 FINGERPRINT_SUPPORT := true
@@ -97,11 +97,8 @@ EXTENDED_FONT_FOOTPRINT := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # MTK Hardware
+BOARD_HAS_MTK_HARDWARE := true
 BOARD_USES_MTK_HARDWARE := true
-
-# RIL
-# BOARD_PROVIDES_RILD := true
-# BOARD_RIL_CLASS := ../../../device/motorola/XT1663/ril
 
 # System Properties
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop

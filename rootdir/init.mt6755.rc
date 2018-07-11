@@ -140,6 +140,7 @@ on post-fs-data
     # We chown/chmod /nvdata again so because mount is run as root + defaults
     chown root system /nvdata
     chmod 0771 /nvdata
+    rm /data/nvram
     symlink /nvdata /data/nvram
     mkdir /nvdata/media 0771 media audio
 
@@ -818,6 +819,7 @@ service start_modem /vendor/bin/md_ctrl 1
     class main
     disabled
     oneshot
+    
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,524288,4096,16384,524288
@@ -970,13 +972,6 @@ service aal /vendor/bin/aal
     class main
     user system
     group system graphics
-
-# FOTA upgrade
-service rbfota /vendor/bin/fota1
-    class main
-    disabled
-    oneshot
-
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
     class main
