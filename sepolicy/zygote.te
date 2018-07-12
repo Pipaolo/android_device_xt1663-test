@@ -72,6 +72,3 @@ allow zygote untrusted_app_tmpfs:file write;
 # Purpose : for TTLIA
 allow zygote radio:fd use;
 allow zygote radio_tmpfs:file create_file_perms;
-
-# Add by Pipaolo
-allow zygote self:capability sys_nice;

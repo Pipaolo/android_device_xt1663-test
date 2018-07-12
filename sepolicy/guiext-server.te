@@ -55,6 +55,3 @@ allow guiext-server proc_secmem:file { read write open };
 # Date : WK16.33
 # Purpose: Allow to access ged for gralloc_extra functions
 allow guiext-server proc_ged:file {open read write ioctl getattr};
-
-# Add by Pipaolo
-allow guiext-server ion_device:chr_file { read write open ioctl };

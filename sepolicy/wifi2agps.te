@@ -22,6 +22,3 @@ allow wifi2agps mtk_agpsd:unix_dgram_socket sendto;
 allow wifi2agps agpsd_data_file:dir search;
 allow wifi2agps self:netlink_socket create_socket_perms;
 allow wifi2agps self:udp_socket { create ioctl };
-
-# Add by Pipaolo
-allow wifi2agps proc_net:file { read open getattr };

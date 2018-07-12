@@ -62,6 +62,3 @@ allow atcid alarm_device:chr_file { write open };
 # Date : WK16.33
 # Purpose: Allow to access ged for gralloc_extra functions
 allow atcid proc_ged:file {open read write ioctl getattr};
-
-# Add by Pipaolo
-allow atcid sysfs:file { read write open };

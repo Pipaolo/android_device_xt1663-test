@@ -1,2 +1,2 @@
-# # Ril
-# BOARD_RIL_CLASS := ../../../device/motorola/XT1663/ril
+# Ril
+# BOARD_PROVIDES_RILD := true

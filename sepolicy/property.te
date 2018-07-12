@@ -265,9 +265,3 @@ type ims_mode_prop, property_type, mtk_core_property_type;
 
 #=============allow EM set 3g vt property=============
 type mtk_em_3gvt_prop, property_type, mtk_core_property_type;
-
-###IDK
-type ril_msim_power_prop, property_type, mtk_core_property_type;
-type ril_sim_inserted_status, property_type, mtk_core_property_type;
-type serial_number_prop, property_type, mtk_core_property_type;
-type vold_encryption_type_prop, property_type;

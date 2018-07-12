@@ -125,5 +125,3 @@ set_prop(mtkrild, persist_service_atci_prop)
 allow mtkrild mtkmal:unix_stream_socket connectto;
 set_prop(mtkrild, persist_mtk_main_attach);
 
-# Add by Pipaolo
-allow mtkrild sysfs:file { read open };

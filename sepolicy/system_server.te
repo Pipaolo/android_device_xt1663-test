@@ -317,16 +317,9 @@ allow system_server debugfs_shrinker_debug:file r_file_perms;
 # Purpose : Allow system server to open/read/write ioctl for sending ccci to enter/leave deep flight
 allow system_server ccci_device:chr_file rw_file_perms;
 
-# Add by Pipaolo
-#allow system_server dex2oat_exec:file { execute };
-#allow system_server dex2oat_exec:file { execute_no_trans };
-
 # Date: W16.37
 # Operation : Carrier Express Pack: bug fix - ALPS02892994
 # Purpose : Allow system server to set property ril eboot, splitted usp prop to usp srv prop
 allow system_server usp_srv_prop:property_service set;
 allow system_server radio_prop:property_service set;
 allow system_server cdma_prop:property_service set;
-
-# Add by Pipaolo
-allow system_server dex2oat_exec:file { getattr read open execute execute_no_trans };

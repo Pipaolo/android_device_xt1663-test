@@ -7,12 +7,7 @@
 ### RIL ###
 rild.libpath=mtk-ril.so
 rild.libargs=-d /dev/ttyC0
-ril.first.md=1
-ril.flightmode.poweroffMD=0
-ril.telephony.mode=0
 ril.read.imsi=1
-ril.radiooff.poweroffMD=0
-ril.specific.sm_cause=0
 ril.external.md=0
 ro.telephony.sim.count=2
 ro.telephony.default_network=9,9
@@ -20,19 +15,14 @@ persist.radio.fd.counter=150
 persist.radio.fd.off.counter=50
 persist.radio.fd.r8.counter=150
 persist.radio.fd.off.r8.counter=50
-persist.radio.default.sim=0
 persist.radio.multisim.config=dsds
-persist.radio.apn_delay=5000
-persist.radio.mobile.data=0,0
 persist.radio.mtk_ps2_rat=W/G
 persist.radio.mtk_ps3_rat=G
 persist.radio.mtk_dsbp_support=1
+persist.radio.default.sim=0
 persist.mtk_dynamic_ims_switch=0
 persist.mtk_nlp_switch_support=1
 persist.mtk_ims_support=1
-persist.service.atci.autostart=1
-persist.service.atci.usermode=1
-ro.sim_refresh_reset_by_modem=1
 ro.mtk_lte_support=1
 ro.mtk_multiple_ims_support=1
 ro.mtk_vilte_ut_support=0
@@ -50,10 +40,10 @@ ro.boot.opt_md1_support=9
 ro.boot.opt_lte_support=1
 ro.boot.opt_eccci_c2k=1
 ro.boot.opt_using_default=1
-ro.sim_me_lock_mode=0
+persist.mtk_epdg_support=1
+persist.mal.mode=0
 ro.com.android.mobiledata=false
 keyguard.no_require_sim=true
-bgw.current3gband=0
 
 ### WiFi ###
 
