@@ -14,8 +14,7 @@ This branch is for building of the LineageOS 14.1.
 ### Working:
  * Rotation
  * Micro SD support
- * Wi-Fi
- * Audio ( Ultra Low Volume )
+ * Audio
  * Auto brightness
  * Offline charging
  * Youtube
@@ -23,17 +22,18 @@ This branch is for building of the LineageOS 14.1.
  * Vibration
  * All Sensors
  * LiveDisplay
+ * Bluetooth
+ * LED Notifications
 
 ### Not Working:
  
  * Wi-Fi tethering
  * GPS
- * Bluetooth
  * AGPS
  * Flashlight (statusbar and camera)
  * Camera rear/front (video and photo) 
- * RIL for SMS/calls/internet/LTE  
- * LED Notifications
+ * RIL for SMS/calls/internet/LTE ( Has signal but can't receive calls or make calls )
+ * Wi-Fi ( Can connect but no internet connection )
  * FM Radio
  * Camera HDR
  * Hotspot (Open Hotspot)
