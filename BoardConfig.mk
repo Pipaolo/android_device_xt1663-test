@@ -22,7 +22,7 @@ include $(LOCAL_PATH)/board/*.mk
 # Device vendor board
 -include vendor/motorola/XT1663/BoardConfigVendor.mk
 
-# TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 #######################################################################
 

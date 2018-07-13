@@ -31,10 +31,6 @@ on post-fs-data
     restorecon_recursive /protect_f
     restorecon_recursive /protect_s
     
- # ignore permission check
-    write /data/ccci_cfg/md_new_ver.1 "flag"
-    chmod 0660 /data/ccci_cfg/md_new_ver.1
-
     setprop vold.post_fs_data_done 1
 
 
@@ -51,6 +47,15 @@ service muxreport-daemon /vendor/bin/muxreport
     group radio cache inet misc
     disabled
     oneshot
+    
+service terservice /vendor/bin/terservice
+    class core
+    user radio
+    group radio cache inet misc
+    oneshot
+
+on property:ril.muxreport=1
+start muxreport-daemon
 
 service ril-daemon-mtk /vendor/bin/mtkrild
     class core
@@ -76,15 +81,6 @@ service ril-daemon-mtk /vendor/bin/mtkrild
     disabled
     oneshot
 
-service md_minilog_util /vendor/bin/md_minilog_util
-    user radio
-    disabled
-    oneshot
-
-#
-#  Modem related services (Begin)
-#
-
 service ccci_fsd /vendor/bin/ccci_fsd 0
     user radio
     group radio system
@@ -103,13 +99,4 @@ service ccci_rpcd /vendor/bin/ccci_rpcd 0
     group radio system
     class core
     oneshot
-
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-on property:ril.muxreport=1
-    start muxreport-daemon
 
