@@ -23,6 +23,7 @@ persist.radio.default.sim=0
 persist.mtk_dynamic_ims_switch=0
 persist.mtk_nlp_switch_support=1
 persist.mtk_ims_support=1
+ro.mtk_enable_md1=1
 ro.mtk_lte_support=1
 ro.mtk_multiple_ims_support=1
 ro.mtk_vilte_ut_support=0
